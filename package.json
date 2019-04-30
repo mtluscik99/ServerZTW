@@ -1,11 +1,11 @@
 {
-  "name": "vidly",
+  "name": "TripServer",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --recursive --exit"
   },
   "keywords": [],
   "author": "",
@@ -13,15 +13,20 @@
   "dependencies": {
     "bcrypt": "^3.0.5",
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
     "config": "^3.1.0",
     "cors": "^2.8.5",
     "express": "^4.16.2",
+    "express-jwt": "^5.3.1",
     "express-promise-router": "^3.0.3",
     "joi": "^13.1.0",
     "joi-date-extensions": "^1.2.0",
     "joi-objectid": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
+    "mocha": "^6.1.4",
+    "mockgoose": "^8.0.1",
     "mongoose": "^5.4.21",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "supertest": "^4.0.2"
   }
 }

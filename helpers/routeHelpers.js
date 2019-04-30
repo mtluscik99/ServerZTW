@@ -86,6 +86,10 @@ module.exports = {
             departureDate: Joi.date(),
             arrivalDate: Joi.date(),
             description: Joi.string().max(500).optional()
+        }),
+        authSchema: Joi.object().keys({
+            email: Joi.string().required().email(),
+            password: Joi.string().required()
         })
     }
 }

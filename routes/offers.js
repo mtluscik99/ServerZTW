@@ -17,4 +17,10 @@ router.route('/:offerId')
     .put([validateParam(schemas.idSchema, 'offerId'), validateBody(schemas.putOfferSchema)], OffersController.replaceOffer)
     .patch([validateParam(schemas.idSchema, 'offerId'), validateBody(schemas.patchOfferSchema)], OffersController.replaceOffer)
     .delete(validateParam(schemas.idSchema, 'offerId'), OffersController.deleteOffer);
+
+router.route('/:offerId/travellers')
+    //.get(validateParam(schemas.idSchema, 'offerId'), OffersController.getOffersTravellers)
+    //.post([validateParam(schemas.idSchema, 'offerId'), validateBody(schemas.userOfferSchema)], OffersController.newOffersTraveller);
+   
+    
     module.exports = router; 

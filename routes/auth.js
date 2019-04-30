@@ -2,9 +2,13 @@ const config = require('config');
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
-const { User } = require('../models/user');
+//const { User } = require('../models/user');
 const mongoose = require('mongoose');
 const express = require('express');
+
+const { User } = require('../models/user');
+//const mongoose = require('mongoose');
+//const express = require('express');
 const router = express.Router();
 
 router.post('/', async (req, res) => {
@@ -31,3 +35,21 @@ function validate(req) {
 }
 
 module.exports = router; 
+
+
+
+
+
+// const router = require('express-promise-router')();
+
+// const UsersController = require('../controllers/users');
+// const {
+//     validateBody,
+//     validateParam,
+//     schemas
+// } = require('../helpers/routeHelpers');
+
+// router.route('/')
+//     .post(validateBody(schemas. authSchema),UsersController.auth);
+
+// module.exports = router; 

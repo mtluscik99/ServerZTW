@@ -49,6 +49,28 @@ module.exports = {
         //remove offer from the users trip list
         publisher.trips.pull(offer);
         res.status(200).json({ success: true});
+    },
+
+    getOffersTravellers: async (req, res, next) => {
+        const { offerId } = req.value.params;
+        const offer = await Ofer.findById(offerId).select('-password').populate('travellers'); //populate() gives whole object, not ony array of id's
+        res.status(200).json(offer.travellers);
+    },
+
+    newOffersTraveller: async (req, res, next) => {
+        const { offerId } = req.value.params;
+        //create a new offer
+        const newUser = new User(req.value.body);
+        //get user
+        const offer = await Offer.findById(offerId);
+        //assign user to offer publisher
+        newUser.publisher = user;
+        //Save the offer
+        await newOffer.save();
+        //add offer to the users's 'trips' array
+        user.trips.push(newOffer);
+        await user.save();
+        res.status(200).json(newOffer);
     }
 
 }

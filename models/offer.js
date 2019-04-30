@@ -39,7 +39,11 @@ const offerSchema = new Schema({
         type: String,
         required: false,
         maxlength: 500
-    }
+    },
+    travellers: [{
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    }]
 });
 
 const Offer = mongoose.model('offer', offerSchema);

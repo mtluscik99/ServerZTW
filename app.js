@@ -2,6 +2,7 @@ const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 mongoose.Promise = global.Promise;
 
@@ -11,6 +12,8 @@ const app = express();
 
 const users = require('./routes/users');
 const offers = require('./routes/offers');
+//const auth = require('./routes/auth');
+app.use(cors());
 
 //midlewares
 app.use(logger('dev'));
@@ -18,6 +21,7 @@ app.use(bodyParser.json());
 
 app.use('/users', users);
 app.use('/offers', offers);
+//app.use('/auth', auth);
 //catch 404 errors and forward them to error handler
 app.use((req, res, next) => {
   const err = new Error('Not found');
