@@ -10,19 +10,20 @@ Technologies:
 
 API Entpoints:
 
+POST  /users/signup      - register a user
+POST  /users/signin      - log in a user
 GET   /users             - list of all users
-POST  /users             - creates a new user
 GET   /users/:id         - shows particular user
 PUT   /users/:id         - update particular user by replacing
 PATCH /users/:id         - update particular user by changing at least 1 field
 GET   /users/:id/trips   - shows list of all trip offerts that users are taking part in
 
 GET   /offers             - list of all offers
-POST  /offers             - creates a new offer (publisher id needed)
+POST  /offers             - creates a new offer (publisher id needed in body request)
 GET   /offers/:id         - shows particular offer
 PUT   /offers/:id         - update particular offer by replacing
 PATCH /offers/:id         - update particular offer by changing at least 1 field
-DELETE/offers/:id         0 deletes particular users offer
+DELETE/offers/:id         - deletes particular users offer
 
 Current structure of project:
 

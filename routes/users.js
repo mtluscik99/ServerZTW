@@ -18,13 +18,14 @@ router.route('/:userId/trips')
     .get(validateParam(schemas.idSchema, 'userId'), UsersController.getUsersBookedTrips)
     //.post([validateParam(schemas.idSchema, 'userId'), validateBody(schemas.userOfferSchema)], UsersController.newUserBookedTrip);
 
+router.route('/:userId/offerId')    
+    .post([validateParam(schemas.idSchema, 'userId'), validateParam(schemas
+         .idSchema, 'offerId'), validateBody(schemas.userOfferSchema)], UsersController.newUserBookedTrip);
+
 router.route('/signup')
     .post(validateBody(schemas.userSchema), UsersController.signUp);
 
 router.route('/signin')
-    .post(UsersController.signIn);
-
-// router.route('/secret')
-//     .get(UsersController.secret);
+    .post(validateBody(schemas.authSchema), UsersController.signIn);
 
 module.exports = router; 

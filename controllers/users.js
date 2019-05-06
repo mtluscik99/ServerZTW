@@ -2,6 +2,7 @@ const User = require('../models/user');
 const Offer = require('../models/offer');
 const JWT = require('jsonwebtoken');
 const { JWT_SECRET } = require('../config/index');
+const bcrypt = require('bcrypt');
 
 signToken = user => {
     return JWT.sign({
@@ -20,7 +21,6 @@ module.exports = {
 
     newUser: async (req, res, next) => {
         const newUser = new User(req.value.body);
-        //newUser.hash = bcrypt.hashSync(req.value.password, 10);
         const user = await newUser.save();
         res.status(201).json(user);
     },
@@ -56,18 +56,20 @@ module.exports = {
 
     newUserBookedTrip: async (req, res, next) => {
         const { userId } = req.value.params;
+        const { offerId } = req.value.params;
         //create a new offer
-        const newOffer = await Offer(req.value.body);
+       // const newOffer = await Offer(req.value.body);
         //get user
         const user = await User.findById(userId);
-        const offer = await Offer.findById(newOffer);
+        const offer = await Offer.findById(offerId);
         //assign user to offer publisher
         //newOffer.publisher = user;
         //Save the offer
-        await newOffer.save();
+        //await newOffer.save();
         //add offer to the users's 'trips' array
         user.trips.push(offer);
         await user.save();
+        offer.travellers.push(user);
         res.status(200).json(offer);
     },
 
@@ -82,18 +84,20 @@ module.exports = {
 
         // Create a new user
         const newUser = new User({ name, surname, email, password });
+        const salt = await bcrypt.genSalt(10);
+        newUser.password = await bcrypt.hash(newUser.password, salt);
         await newUser.save();
 
-        // Generate the token
-        const token = signToken(newUser);
-
-        // Respond with token
-        res.status(200).json({ token });
+        res.status(200).json({ newUser });
     },
     
     signIn: async (req, res, next) => {
+        let user = await User.findOne({ email: req.body.email });
+        if (!user) return res.status(400).send('Invalid email or password.');
+        const validPassword = await bcrypt.compare(req.body.password, user.password);
+        if (!validPassword) return res.status(400).send('Invalid email or password.');       
         // Generate token
-        const token = signToken(req.user);
+        const token = signToken(user);
         res.status(200).json({ token });
     },
 

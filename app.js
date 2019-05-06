@@ -15,7 +15,7 @@ const offers = require('./routes/offers');
 //const auth = require('./routes/auth');
 app.use(cors());
 
-//midlewares
+//middlewares
 app.use(logger('dev'));
 app.use(bodyParser.json());
 

@@ -13,14 +13,9 @@ module.exports = {
         const publisher = await User.findById(req.body.publisher);
         //create new offer
         const newOffer = req.body;
-        delete newOffer.publisher;
         const offer = new Offer(newOffer);
         offer.publisher = publisher;
         await offer.save();
-        //add newly created offer to the actual publisher
-        publisher.trips.push(offer);
-        await publisher.save();
-
         res.status(201).json(offer);
     },
 
