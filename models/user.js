@@ -30,9 +30,19 @@ const userSchema = new Schema({
         maxlength: 1024
     },
     trips: [{
-        type: Schema.Types.ObjectId,
-        ref: 'offer'
-    }]
+            type: Schema.Types.ObjectId,
+            ref: 'offer'
+        }],
+    phone: {
+        type: String,
+        required: false
+    },
+    aboutMe: {
+        type: String,
+        required: false,
+        maxlength: 1024
+    }
+    
 });
 
 const User = mongoose.model('user', userSchema);

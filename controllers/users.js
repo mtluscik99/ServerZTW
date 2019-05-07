@@ -27,16 +27,16 @@ module.exports = {
 
     getUser: async (req, res, next) => {
         //const { userId } = req.value.params;
-        const id = req.headers['auth-token'];
+        const id = req.header('auth-token');
         const user = await User.findById(id);
         res.status(200).json(user);
     },
 
     replaceUser: async (req, res, next) => {
         //request of body must contain all the fields
-        const { userId } = req.value.params;
+        const id = req.header('auth-token');
         const newUser = req.value.body;
-        const result = await User.findByIdAndUpdate(userId, newUser);
+        const result = await User.findByIdAndUpdate(id, newUser);
         res.status(200).json({success: true});
     },
 

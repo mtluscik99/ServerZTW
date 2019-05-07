@@ -12,10 +12,13 @@ router.route('/')
 router.route('/user')
     .get(UsersController.getUser);
 // /users/:id
+router.route('/edit-profile')
+    .put( validateBody(schemas.userSchema), UsersController.replaceUser)
+    
 router.route('/:userId')
     //.get(validateParam(schemas.idSchema, 'userId'), UsersController.getUser)
     .get(UsersController.getUser)
-    .put([validateParam(schemas.idSchema, 'userId'), validateBody(schemas.userSchema)], UsersController.replaceUser)
+    //.put([validateParam(schemas.idSchema, 'userId'), validateBody(schemas.userSchema)], UsersController.replaceUser)
     .patch([validateParam(schemas.idSchema, 'userId'), validateBody(schemas.userOptionalSchema)],UsersController.updateUser);
 
 router.route('/:userId/trips')

@@ -46,5 +46,8 @@ const offerSchema = new Schema({
     }]
 });
 
+
+offerSchema.index({ '$**': 'text'});
+
 const Offer = mongoose.model('offer', offerSchema);
 module.exports = Offer;
