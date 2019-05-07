@@ -27,7 +27,7 @@ module.exports = {
 
     getUser: async (req, res, next) => {
         //const { userId } = req.value.params;
-        const id = req.headers['id'];
+        const id = req.headers['auth-token'];
         const user = await User.findById(id);
         res.status(200).json(user);
     },
