@@ -26,9 +26,10 @@ module.exports = {
     },
 
     getUser: async (req, res, next) => {
-        const { userId } = req.value.params;
+        //const { userId } = req.value.params;
         //const { userId } = req.params;
-        const user = await User.findById(userId);
+        const id = req.headers['id'];
+        const user = await User.findById(id);
         res.status(200).json(user);
     },
 
@@ -56,21 +57,24 @@ module.exports = {
 
     newUserBookedTrip: async (req, res, next) => {
         const { userId } = req.value.params;
-        const { offerId } = req.value.params;
         //create a new offer
        // const newOffer = await Offer(req.value.body);
         //get user
         const user = await User.findById(userId);
-        const offer = await Offer.findById(offerId);
+       // const offer = req.value.body;
+        const offer = req.value.body;
+        const offerId = offer._id;
+        const offerToTrips = await Offer.findById(offerId);
         //assign user to offer publisher
         //newOffer.publisher = user;
         //Save the offer
         //await newOffer.save();
         //add offer to the users's 'trips' array
-        user.trips.push(offer);
+        user.trips.push(offerToTrips);
         await user.save();
-        offer.travellers.push(user);
-        res.status(200).json(offer);
+        offerToTrips.travellers.push(user);
+        await offerToTrips.save();
+        res.status(200).json(offerToTrips, user);
     },
 
     signUp: async (req, res, next) => {
@@ -97,7 +101,9 @@ module.exports = {
         const validPassword = await bcrypt.compare(req.body.password, user.password);
         if (!validPassword) return res.status(400).send('Invalid email or password.');       
         // Generate token
+        var tokens = req.headers['id'];
         const token = signToken(user);
+        //res.header('auth-token', token).send(user);
         res.status(200).json({ token });
     },
 

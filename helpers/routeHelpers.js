@@ -53,7 +53,12 @@ module.exports = {
             param: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
         }),
 
+        offerUserSchema: Joi.object().keys({
+            email: Joi.string().min(5).max(255).required().email()
+        }),
+
         userOfferSchema: Joi.object().keys({
+            //_id: Joi.string().required(),
             cityFrom: Joi.string().required(),
             cityTo: Joi.string().required(),
             seatsLeft: Joi.number().min(1).max(6).required(),

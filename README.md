@@ -8,7 +8,7 @@ Technologies:
 -MongoDB
 -mongoose
 
-API Entpoints:
+API Endpoints:
 
 POST  /users/signup      - register a user
 POST  /users/signin      - log in a user
