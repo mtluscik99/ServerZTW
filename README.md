@@ -13,8 +13,8 @@ API Endpoints:
 POST  /users/signup      - register a user
 POST  /users/signin      - log in a user
 GET   /users             - list of all users
-GET   /users/:id         - shows particular user
-PUT   /users/:id         - update particular user by replacing
+GET   /users/user        - shows particular user
+PUT   /users/edit-profile- update particular user by replacing
 PATCH /users/:id         - update particular user by changing at least 1 field
 GET   /users/:id/trips   - shows list of all trip offerts that users are taking part in
 

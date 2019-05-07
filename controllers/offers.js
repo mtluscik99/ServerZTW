@@ -66,6 +66,8 @@ module.exports = {
         traveller.trips.push(offer);
         await traveller.save();
         res.status(200).json(traveller);
-    }
-
+    } 
 }
+Offer.search('Wars', function(err, data){
+        console.log(data);
+    })

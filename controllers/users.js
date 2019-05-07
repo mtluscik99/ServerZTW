@@ -42,9 +42,10 @@ module.exports = {
 
     updateUser: async (req, res, next) => {
         //request of body may cantailn any number of fields
-        const { userId } = req.value.params;
+       // const { userId } = req.value.params;
+        const id = req.header('auth-token');
         const newUser = req.value.body;
-        const result = await User.findByIdAndUpdate(userId, newUser);
+        const result = await User.findByIdAndUpdate(id, newUser);
         res.status(200).json({ success: true });
     },
 

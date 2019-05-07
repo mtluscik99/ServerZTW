@@ -13,7 +13,7 @@ router.route('/user')
     .get(UsersController.getUser);
 // /users/:id
 router.route('/edit-profile')
-    .put( validateBody(schemas.userSchema), UsersController.replaceUser)
+    .patch(validateBody(schemas.userOptionalSchema), UsersController.replaceUser)
     
 router.route('/:userId')
     //.get(validateParam(schemas.idSchema, 'userId'), UsersController.getUser)
