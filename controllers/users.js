@@ -27,7 +27,6 @@ module.exports = {
 
     getUser: async (req, res, next) => {
         //const { userId } = req.value.params;
-        //const { userId } = req.params;
         const id = req.headers['id'];
         const user = await User.findById(id);
         res.status(200).json(user);
@@ -101,10 +100,10 @@ module.exports = {
         const validPassword = await bcrypt.compare(req.body.password, user.password);
         if (!validPassword) return res.status(400).send('Invalid email or password.');       
         // Generate token
-        var tokens = req.headers['id'];
-        const token = signToken(user);
+        //const token = signToken(user);
         //res.header('auth-token', token).send(user);
-        res.status(200).json({ token });
+        const token = user._id;
+        res.status(200).json({token});
     },
 
    
