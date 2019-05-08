@@ -19,30 +19,20 @@ module.exports = {
        res.status(200).json(users);
     },
 
-    newUser: async (req, res, next) => {
-        const newUser = new User(req.value.body);
-        const user = await newUser.save();
-        res.status(201).json(user);
-    },
+    // newUser: async (req, res, next) => {
+    //     const newUser = new User(req.value.body);
+    //     const user = await newUser.save();
+    //     res.status(201).json(user);
+    // },
 
     getUser: async (req, res, next) => {
-        //const { userId } = req.value.params;
         const id = req.header('auth-token');
         const user = await User.findById(id);
         res.status(200).json(user);
     },
 
-    replaceUser: async (req, res, next) => {
-        //request of body must contain all the fields
-        const id = req.header('auth-token');
-        const newUser = req.value.body;
-        const result = await User.findByIdAndUpdate(id, newUser);
-        res.status(200).json({success: true});
-    },
-
     updateUser: async (req, res, next) => {
         //request of body may cantailn any number of fields
-       // const { userId } = req.value.params;
         const id = req.header('auth-token');
         const newUser = req.value.body;
         const result = await User.findByIdAndUpdate(id, newUser);
@@ -50,8 +40,8 @@ module.exports = {
     },
 
     getUsersBookedTrips: async (req, res, next) => {
-        const { userId } = req.value.params;
-        const user = await User.findById(userId).populate('trips'); //populate() gives whole object, not ony array of id's
+        const id = req.header('auth-token');
+        const user = await User.findById(id).populate('trips'); //populate() gives whole object, not ony array of id's
         res.status(200).json(user.trips);
     },
 
