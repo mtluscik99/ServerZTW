@@ -24,6 +24,7 @@ PUT   /users/book-trip   - book an offer and save it in a trips array in user(us
 GET   /offers             - list of all offers
 POST  /offers/add         - creates a new offer (publisher id (auth-token) needed in header request)
 GET   /offers/published-offers - shows list of offers published by user (publisher id (auth-token) needed in header request)
+
 GET   /offers/:id         - shows particular offer
 PUT   /offers/:id         - update particular offer by replacing
 PATCH /offers/:id         - update particular offer by changing at least 1 field

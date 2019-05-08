@@ -50,6 +50,9 @@ module.exports = {
         const user = await User.findById(id);
         const idOffer = req.header('auth-offer');
         const offer = await Offer.findById(idOffer);
+        if (offer.seatsLeft < 1) {
+            return res.status(403).json({ error: 'We dont have any seats left in this offer'});
+        }
         console.log({offer});
         user.trips.push(offer);
         await user.save();
