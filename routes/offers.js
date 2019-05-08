@@ -10,9 +10,13 @@ const {
 
 router.route('/')
     .get(OffersController.index);
+
 router.route('/add')
     .post(validateBody(schemas.offerSchema), OffersController.newOffer);
 
+router.route('/published-offers')
+    .get(OffersController.getPublisherOffers);
+    
 router.route('/:offerId')
     .get(validateParam(schemas.idSchema, 'offerId'), OffersController.getOffer)
     .put([validateParam(schemas.idSchema, 'offerId'), validateBody(schemas.putOfferSchema)], OffersController.replaceOffer)

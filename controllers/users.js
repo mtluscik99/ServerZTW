@@ -46,25 +46,17 @@ module.exports = {
     },
 
     newUserBookedTrip: async (req, res, next) => {
-        const { userId } = req.value.params;
-        //create a new offer
-       // const newOffer = await Offer(req.value.body);
-        //get user
-        const user = await User.findById(userId);
-       // const offer = req.value.body;
-        const offer = req.value.body;
-        const offerId = offer._id;
-        const offerToTrips = await Offer.findById(offerId);
-        //assign user to offer publisher
-        //newOffer.publisher = user;
-        //Save the offer
-        //await newOffer.save();
-        //add offer to the users's 'trips' array
-        user.trips.push(offerToTrips);
+        const id = req.header('auth-token');
+        const user = await User.findById(id);
+        const idOffer = req.header('auth-offer');
+        const offer = await Offer.findById(idOffer);
+        console.log({offer});
+        user.trips.push(offer);
         await user.save();
-        offerToTrips.travellers.push(user);
-        await offerToTrips.save();
-        res.status(200).json(offerToTrips, user);
+        offer.seatsLeft = offer.seatsLeft - 1;
+        await offer.save();
+        console.log({ offer });
+        res.status(200).json(user);
     },
 
     signUp: async (req, res, next) => {

@@ -18,7 +18,7 @@ const offerSchema = new Schema({
     seatsLeft: {
         type: Number,
         required: true,
-        min: 1,
+        min: 0,
         max: 6
     },
     publisher: {
@@ -40,10 +40,10 @@ const offerSchema = new Schema({
         required: false,
         maxlength: 500
     },
-    travellers: [{
-        type: Schema.Types.ObjectId,
-        ref: 'user'
-    }]
+    // travellers: [{
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'user'
+    // }]
 });
 
 

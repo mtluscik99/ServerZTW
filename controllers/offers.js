@@ -7,13 +7,17 @@ module.exports = {
         res.status(200).json(offers);
     },
 
+    getPublisherOffers: async (req, res, next) => {
+        const id = req.header('auth-token');
+        const user = await User.findById(id);
+        const offers = await Offer.find({ publisher: user});
+        res.status(200).json(offers);
+    },
+
     newOffer: async (req, res, next) => {
         console.log(req.value);
         const id = req.header('auth-token');
         const user = await User.findById(id);
-        //find the actual publisher of offer
-        //const publisher = await User.findById(req.body.publisher);
-        //create new offer
         const newOffer = req.body;
         const offer = new Offer(newOffer);
         offer.publisher = user;
