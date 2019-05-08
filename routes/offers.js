@@ -9,7 +9,8 @@ const {
 } = require('../helpers/routeHelpers');
 
 router.route('/')
-    .get(OffersController.index)
+    .get(OffersController.index);
+router.route('/add')
     .post(validateBody(schemas.offerSchema), OffersController.newOffer);
 
 router.route('/:offerId')

@@ -68,7 +68,7 @@ module.exports = {
         }),
 
         offerSchema: Joi.object().keys({
-            publisher: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+            //publisher: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
             cityFrom: Joi.string().required(),
             cityTo: Joi.string().required(),
             seatsLeft: Joi.number().min(1).max(6).required(),

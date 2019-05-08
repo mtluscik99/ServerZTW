@@ -9,12 +9,14 @@ module.exports = {
 
     newOffer: async (req, res, next) => {
         console.log(req.value);
+        const id = req.header('auth-token');
+        const user = await User.findById(id);
         //find the actual publisher of offer
-        const publisher = await User.findById(req.body.publisher);
+        //const publisher = await User.findById(req.body.publisher);
         //create new offer
         const newOffer = req.body;
         const offer = new Offer(newOffer);
-        offer.publisher = publisher;
+        offer.publisher = user;
         await offer.save();
         res.status(201).json(offer);
     },
@@ -68,6 +70,6 @@ module.exports = {
         res.status(200).json(traveller);
     } 
 }
-Offer.search('Wars', function(err, data){
-        console.log(data);
-    })
+// Offer.search('Warszawa', function(err, data){
+//         console.log(data);
+//     })
