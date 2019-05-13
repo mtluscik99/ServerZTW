@@ -48,8 +48,8 @@ module.exports = {
     newUserBookedTrip: async (req, res, next) => {
         const id = req.header('auth-token');
         const user = await User.findById(id);
-        const idOffer = req.header('auth-offer');
-        const offer = await Offer.findById(idOffer);
+        const { offerId } = req.value.params;
+        const offer = await Offer.findById(offerId);
         if (offer.seatsLeft < 1) {
             return res.status(403).json({ error: 'We dont have any seats left in this offer'});
         }

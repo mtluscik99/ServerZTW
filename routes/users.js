@@ -17,8 +17,8 @@ router.route('/trips')
     .get( UsersController.getUsersBookedTrips)
     .post([validateParam(schemas.idSchema, 'userId'), validateBody(schemas.userOfferSchema)], UsersController.newUserBookedTrip);
 
-router.route('/book-trip')
-    .put(UsersController.newUserBookedTrip)
+router.route('/book-trip/:offerId')
+    .put(validateParam(schemas.idSchema, 'offerId'), UsersController.newUserBookedTrip);
 
 router.route('/signup')
     .post(validateBody(schemas.userSchema), UsersController.signUp);
