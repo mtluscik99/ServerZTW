@@ -20,6 +20,9 @@ router.route('/trips')
 router.route('/book-trip/:offerId')
     .get(validateParam(schemas.idSchema, 'offerId'), UsersController.newUserBookedTrip);
 
+router.route('/resign-trip/:offerId')
+    .get(validateParam(schemas.idSchema, 'offerId'), UsersController.resignFromTrip);
+
 router.route('/signup')
     .post(validateBody(schemas.userSchema), UsersController.signUp);
 

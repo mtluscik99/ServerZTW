@@ -63,6 +63,31 @@ module.exports = {
         res.status(200).json(offers);
     },
 
+    resignFromTrip: async (req, res, next) => {
+        const id = req.header('auth-token');
+        const user = await User.findById(id);
+        const { offerId } = req.value.params;
+        const offer = await Offer.findById(offerId);
+    
+        console.log({ offer });
+        console.log({ user });
+
+        var offersToStay = user.trips.filter(function (item) {
+            return item != offer.id;
+        });
+        if (user.trips.length == offersToStay.length){
+            return res.status(403).json({ error: 'You did not book any seats here' });
+        }
+        user.trips = offersToStay;
+        await user.save();
+        console.log({ user });
+        offer.seatsLeft = offer.seatsLeft + 1;
+        await offer.save();
+        console.log({ offer });
+        const offers = await Offer.find({});
+        res.status(200).json(offers);
+    },
+
     signUp: async (req, res, next) => {
         const { name, surname, email, password } = req.value.body;
         console.log(req.value.body);
