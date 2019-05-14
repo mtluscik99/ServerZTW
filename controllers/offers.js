@@ -10,7 +10,8 @@ module.exports = {
         //     console.log(user);
         // }));
         //console.log(offers);
-        //const offers = await Offer.reduce({ publisher: user });
+        const offers = await Offer.find( { });
+        console.log(offers);
         res.status(200).json(offers);
     },
 
