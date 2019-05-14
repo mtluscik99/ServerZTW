@@ -72,8 +72,16 @@ module.exports = {
         
         await offer.remove();
         res.status(200).json({ success: true});
+    },
+
+    searcher: (req, res, next) => {
+        Offer.search(req.query.search, function (err, data){
+            console.log(data);
+            if(data.length == 0){
+                return res.status(200).json({sorry: "Offers not found"});
+            }
+            res.status(200).json(data);
+        })
     }
 }
-// Offer.search('Warszawa', function(err, data){
-//         console.log(data);
-//     })
+

@@ -19,7 +19,10 @@ router.route('/published-offers')
 
 router.route('/offer-travellers/:offerId')
     .get(validateParam(schemas.idSchema, 'offerId'), OffersController.getOfferTravellers)
-    
+
+router.route('/searcher')
+    .get( OffersController.searcher);
+
 router.route('/:offerId')
     .get(validateParam(schemas.idSchema, 'offerId'), OffersController.getOffer)
     .put([validateParam(schemas.idSchema, 'offerId'), validateBody(schemas.putOfferSchema)], OffersController.replaceOffer)
