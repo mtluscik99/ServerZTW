@@ -3,7 +3,14 @@ const User = require('../models/user');
 
 module.exports = {
     index: async (req, res, next) => {
-        const offers = await Offer.find({});
+        const id = req.header('auth-token');
+        const user = await User.findById(id);
+        // const offers = await Offer.find(publisher.filter(function (item) {
+        //     return item != user;
+        //     console.log(user);
+        // }));
+        //console.log(offers);
+        //const offers = await Offer.reduce({ publisher: user });
         res.status(200).json(offers);
     },
 
@@ -30,6 +37,12 @@ module.exports = {
         res.status(200).json(offer);
     },
 
+    getOfferTravellers: async (req, res, next) => {
+        const offer = await Offer.findById(req.value.params.offerId);
+        const users = await User.find({ trips: offer });
+        res.status(200).json(users);
+    },
+
     replaceOffer: async (req, res, next) => {
         //request of body must contain all the fields
         const { offerId } = req.value.params;
@@ -40,39 +53,25 @@ module.exports = {
 
     deleteOffer: async(req, res, next) => {
         const { offerId } = req.value.params;
-        //get an offer
         const offer = await Offer.findById(offerId);
-        const publisherId = offer.publisher;
-        //get the publisher
-        const publisher = await User.findById(publisherId);
-        //remove an offer
+        const id = req.header('auth-token');
+        const user = await User.findById(id);
+        if (offer.publisher != id) {
+            return res.status(403).json({ error: 'You do not have a permission to that operation' });
+        }
+        const users = await User.find({ trips: offer });
+        for(var i = 0; i < users.length; i++){
+            var listOfTrips = users[i].trips;
+            var listOfTrips = listOfTrips.filter(function (item) {
+                return item != offer.id;
+            });
+            users[i].trips = listOfTrips;
+            await users[i].save();
+        }
+        
         await offer.remove();
-        //remove offer from the users trip list
-        publisher.trips.pull(offer);
         res.status(200).json({ success: true});
-    },
-
-    getOffersTravellers: async (req, res, next) => {
-        const { offerId } = req.value.params;
-        const offer = await Ofer.findById(offerId).populate('travellers').select('-password'); //populate() gives whole object, not ony array of id's
-        res.status(200).json(offer.travellers);
-    },
-
-    newOffersTraveller: async (req, res, next) => {
-        const { offerId } = req.value.params;
-        const offer = await Offer.findById(offerId);
-        const user = req.value.body;
-        const email = user.email;
-        const traveller = await User.find({ email: email});
-        //assign user to offer publisher
-        offer.travellers.push(traveller.id);
-        //Save the offer
-        await offer.save();
-        //add offer to the users's 'trips' array
-        traveller.trips.push(offer);
-        await traveller.save();
-        res.status(200).json(traveller);
-    } 
+    }
 }
 // Offer.search('Warszawa', function(err, data){
 //         console.log(data);

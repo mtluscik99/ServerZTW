@@ -25,10 +25,11 @@ GET   /offers             - list of all offers
 POST  /offers/add         - creates a new offer (publisher id (auth-token) needed in header request)
 GET   /offers/published-offers - shows list of offers published by user (publisher id (auth-token) needed in header request)
 
-GET   /offers/:id         - shows particular offer
+GET   /offers/:offerId        - shows particular offer
+GET   /offers/offer-travellers/:offeriId        - shows offer travellers
 PUT   /offers/:id         - update particular offer by replacing
 PATCH /offers/:id         - update particular offer by changing at least 1 field
-DELETE/offers/:id         - deletes particular users offer
+DELETE/offers/:offerId         - deletes particular users offer (publisher id (auth-token) needed in header request and offer id in path)
 
 Current structure of project:
 

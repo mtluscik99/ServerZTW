@@ -16,16 +16,14 @@ router.route('/add')
 
 router.route('/published-offers')
     .get(OffersController.getPublisherOffers);
+
+router.route('/offer-travellers/:offerId')
+    .get(validateParam(schemas.idSchema, 'offerId'), OffersController.getOfferTravellers)
     
 router.route('/:offerId')
     .get(validateParam(schemas.idSchema, 'offerId'), OffersController.getOffer)
     .put([validateParam(schemas.idSchema, 'offerId'), validateBody(schemas.putOfferSchema)], OffersController.replaceOffer)
     .patch([validateParam(schemas.idSchema, 'offerId'), validateBody(schemas.patchOfferSchema)], OffersController.replaceOffer)
     .delete(validateParam(schemas.idSchema, 'offerId'), OffersController.deleteOffer);
-
-router.route('/:offerId/travellers')
-    .get(validateParam(schemas.idSchema, 'offerId'), OffersController.getOffersTravellers)
-    .post([validateParam(schemas.idSchema, 'offerId'), validateBody(schemas.offerUserSchema)], OffersController.newOffersTraveller);
-   
     
     module.exports = router; 
