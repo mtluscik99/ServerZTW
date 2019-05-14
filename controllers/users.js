@@ -59,7 +59,7 @@ module.exports = {
         offer.seatsLeft = offer.seatsLeft - 1;
         await offer.save();
         console.log({ offer });
-        res.status(200).json(user);
+        res.status(200).json(offer);
     },
 
     signUp: async (req, res, next) => {
