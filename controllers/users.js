@@ -58,8 +58,9 @@ module.exports = {
         await user.save();
         offer.seatsLeft = offer.seatsLeft - 1;
         await offer.save();
-        console.log({ offer });
-        res.status(200).json(offer);
+        const offers = await Offer.find({});
+        console.log({ offers });
+        res.status(200).json(offers);
     },
 
     signUp: async (req, res, next) => {
