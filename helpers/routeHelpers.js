@@ -39,14 +39,18 @@ module.exports = {
             name: Joi.string().required(),
             surname: Joi.string().required(),
             email: Joi.string().min(5).max(255).required().email(),
-            password: Joi.string().min(5).max(1024).required()
+            password: Joi.string().min(5).max(1024).required(),
+            phone: Joi.string().required(),
+            aboutMe: Joi.string().optional().max(1024)
         }),
 
         userOptionalSchema: Joi.object().keys({
             name: Joi.string().optional(),
             surname: Joi.string().optional(),
             email: Joi.string().min(5).max(255).optional().email(),
-            password: Joi.string().min(5).max(1024).optional()
+            password: Joi.string().min(5).max(1024).optional(),
+            phone: Joi.string().optional(),
+            aboutMe: Joi.string().optional().max(1024)
         }),
 
         idSchema: Joi.object().keys({

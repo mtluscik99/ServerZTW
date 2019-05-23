@@ -89,7 +89,7 @@ module.exports = {
     },
 
     signUp: async (req, res, next) => {
-        const { name, surname, email, password } = req.value.body;
+        const { name, surname, email, password, phone, aboutMe } = req.value.body;
         console.log(req.value.body);
         //Check if there is a user with the same email
         const foundUser = await User.findOne({ email });
@@ -98,7 +98,7 @@ module.exports = {
         }
 
         // Create a new user
-        const newUser = new User({ name, surname, email, password });
+        const newUser = new User({ name, surname, email, password, phone, aboutMe });
         const salt = await bcrypt.genSalt(10);
         newUser.password = await bcrypt.hash(newUser.password, salt);
         await newUser.save();
