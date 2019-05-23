@@ -1,5 +1,6 @@
 const Offer = require('../models/offer');
 const User = require('../models/user');
+var moment = require('moment');
 
 module.exports = {
     index: async (req, res, next) => {
@@ -75,10 +76,10 @@ module.exports = {
     },
 
     searcherCityFrom: (req, res, next) => {
-        Offer.searchCityFrom(req.query.search, function (err, data){
+        Offer.searchCityFrom(req.query.search, function (err, data) {
             console.log(data);
-            if(data.length == 0){
-                return res.status(200).json({sorry: "Offers with given city from not found"});
+            if (data.length == 0) {
+                return res.status(200).json({ sorry: "Offers with given city from not found" });
             }
             res.status(200).json(data);
         })
@@ -92,6 +93,21 @@ module.exports = {
             }
             res.status(200).json(data);
         })
+    },
+
+    searcherOffer: async (req, res, next) => {
+        let cityFrom = req.query.searchFrom;
+        let cityTo = req.query.searchTo;
+
+        let offers = await Offer.find({cityFrom: cityFrom, cityTo: cityTo});
+        console.log(offers);
+            if (offers.length == 0) {
+                return res.status(200).json({ sorry: "Offers with given cities not found" });
+            }
+        res.status(200).json(offers);
+        
     }
+
+
 }
 

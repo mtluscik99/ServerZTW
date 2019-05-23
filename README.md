@@ -31,6 +31,7 @@ PUT   /offers/:id                                   - update particular offer by
 PATCH /offers/:id                                   - update particular offer by changing at least 1 field
 GET   /offers/searcher-city-from?search=Warszawa    - search for all cities from with Warszawa (req.query.search = text to search)
 GET   /offers/searcher-city-to?search=Warszawa      - search for all cities to with Warszawa (req.query.search = text to search)
+GET   /offers/searcher?searchFrom=Wrocław&searchTo=Kraśnik      -search for all offers with given cities
 DELETE/offers/:offerId                              - deletes particular users offer (publisher id (auth-token) needed in header request and offer id in path)
 
 Current structure of project:
