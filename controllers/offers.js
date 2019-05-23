@@ -74,11 +74,21 @@ module.exports = {
         res.status(200).json({ success: true});
     },
 
-    searcher: (req, res, next) => {
-        Offer.search(req.query.search, function (err, data){
+    searcherCityFrom: (req, res, next) => {
+        Offer.searchCityFrom(req.query.search, function (err, data){
             console.log(data);
             if(data.length == 0){
-                return res.status(200).json({sorry: "Offers not found"});
+                return res.status(200).json({sorry: "Offers with given city from not found"});
+            }
+            res.status(200).json(data);
+        })
+    },
+
+    searcherCityTo: (req, res, next) => {
+        Offer.searchCityTo(req.query.search, function (err, data) {
+            console.log(data);
+            if (data.length == 0) {
+                return res.status(200).json({ sorry: "Offers with given city to not found" });
             }
             res.status(200).json(data);
         })

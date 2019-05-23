@@ -46,12 +46,18 @@ const offerSchema = new Schema({
 offerSchema.index({ '$**': 'text'});
 
 offerSchema.statics = {
-    searchPartial: function (q, callback) {
+    searchPartialCityFrom: function (q, callback) {
         return this.find({
             $or: [
                 { "cityFrom": new RegExp(q, "gi") },
+            ]
+        }, callback);
+    },
+
+    searchPartialCityTo: function (q, callback) {
+        return this.find({
+            $or: [
                 { "cityTo": new RegExp(q, "gi") },
-                { "description": new RegExp(q, "gi") },
             ]
         }, callback);
     },
@@ -62,11 +68,19 @@ offerSchema.statics = {
         }, callback)
     },
 
-    search: function (q, callback) {
+    searchCityFrom: function (q, callback) {
         this.searchFull(q, (err, data) => {
             if (err) return callback(err, data);
             if (!err && data.length) return callback(err, data);
-            if (!err && data.length === 0) return this.searchPartial(q, callback);
+            if (!err && data.length === 0) return this.searchPartialCityFrom(q, callback);
+        });
+    },
+
+    searchCityTo: function (q, callback) {
+        this.searchFull(q, (err, data) => {
+            if (err) return callback(err, data);
+            if (!err && data.length) return callback(err, data);
+            if (!err && data.length === 0) return this.searchPartialCityTo(q, callback);
         });
     },
 }

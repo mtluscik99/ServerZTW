@@ -20,8 +20,11 @@ router.route('/published-offers')
 router.route('/offer-travellers/:offerId')
     .get(validateParam(schemas.idSchema, 'offerId'), OffersController.getOfferTravellers)
 
-router.route('/searcher')
-    .get( OffersController.searcher);
+router.route('/searcher-city-from')
+    .get( OffersController.searcherCityFrom);
+
+router.route('/searcher-city-to')
+    .get(OffersController.searcherCityTo);
 
 router.route('/:offerId')
     .get(validateParam(schemas.idSchema, 'offerId'), OffersController.getOffer)
