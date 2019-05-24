@@ -44,7 +44,11 @@ const userSchema = new Schema({
     },
     isAdmin:{
         type: Boolean
-    }
+    },
+    toAccept: [{
+        type: Schema.Types.ObjectId,
+        ref: 'offer'
+    }]
     
 });
 

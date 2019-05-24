@@ -15,10 +15,19 @@ router.route('/edit-profile')
 
 router.route('/trips')
     .get( UsersController.getUsersBookedTrips)
-    .post([validateParam(schemas.idSchema, 'userId'), validateBody(schemas.userOfferSchema)], UsersController.newUserBookedTrip);
+    //.post([validateParam(schemas.idSchema, 'userId'), validateBody(schemas.userOfferSchema)], UsersController.newUserBookedTrip);
 
 router.route('/book-trip/:offerId')
-    .get(validateParam(schemas.idSchema, 'offerId'), UsersController.newUserBookedTrip);
+    .get(validateParam(schemas.idSchema, 'offerId'), UsersController.bookTrip);
+
+router.route('/users-to-accept/:offerId')
+    .get(validateParam(schemas.idSchema, 'offerId'), UsersController.getUsersToAcceptTrip);
+
+router.route('/accept-user/:offerId/:userId')
+    .get([validateParam(schemas.idSchema, 'offerId'), validateParam(schemas.idSchema, 'offerId')],UsersController.acceptUser);
+
+router.route('/reject-user/:offerId/:userId')
+    .get([validateParam(schemas.idSchema, 'offerId'), validateParam(schemas.idSchema, 'offerId')], UsersController.rejectUser);
 
 router.route('/resign-trip/:offerId')
     .get(validateParam(schemas.idSchema, 'offerId'), UsersController.resignFromTrip);

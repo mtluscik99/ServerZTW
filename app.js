@@ -21,7 +21,6 @@ app.use(bodyParser.json());
 
 app.use('/users', users);
 app.use('/offers', offers);
-//app.use('/auth', auth);
 //catch 404 errors and forward them to error handler
 app.use((req, res, next) => {
   const err = new Error('Not found');

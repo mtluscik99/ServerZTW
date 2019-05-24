@@ -18,8 +18,12 @@ GET   /users                        - list of all users
 GET   /users/user                   - shows particular user
 PATCH /users/edit-profile           - update particular user by changing at least 1 field
 GET   /users/trips                  - shows list of all trip offerts that users are taking part in publisher (user id (auth-token) needed in header request)
-GET   /users/book-trip/:offerId     - book an offer and save it in a trips array in user(user id (auth-token) needed in header request as user, and offer id needed in path as an offer to book)
+GET   /users/book-trip/:offerId     - ask publisher to book an offer and save it in a toAccept array in user(user id (auth-token) needed in header request as user, and offer id needed in path as an offer to book) returns offer
+GET   /users/users-to-accept/:offerId - showa a list of unaccepted users wanted to book a trip to partiicular offer (publisher id (auth-token) needed in header request and offer id needed in path)
+GET   /users/accept-user/:offerId/:userId - add asking user for a trip (publisher id (auth-token) needed in header request and offer id needed in path and user id needed in a path)
+GET   /users/reject-user/:offerId/:userId - disagree for booking a trip by an user(publisher id (auth-token) needed in header request and offer id needed in path and user id needed in a path)
 GET   /users/resign-trip/:offerId   - resign an offer and remove it from trips array in user(user id (auth-token) needed in header request as user, and offer id needed in path as an offer to book)
+
     
     OFFER:
 GET   /offers                                       - list of all offers

@@ -45,22 +45,89 @@ module.exports = {
         res.status(200).json(user.trips);
     },
 
-    newUserBookedTrip: async (req, res, next) => {
+    bookTrip: async (req, res, next) => {
         const id = req.header('auth-token');
         const user = await User.findById(id);
         const { offerId } = req.value.params;
         const offer = await Offer.findById(offerId);
         if (offer.seatsLeft < 1) {
-            return res.status(403).json({ error: 'We dont have any seats left in this offer'});
+            return res.status(403).json({ error: 'We dont have any seats left in this offer' });
+        }
+        console.log({ offer });
+        user.toAccept.push(offer);
+        await user.save();
+        res.status(200).json(offer);
+    },
+
+    getUsersToAcceptTrip: async (req, res, next) => {
+        const id = req.header('auth-token');
+        const user = await User.findById(id);
+        const { offerId } = req.value.params;
+        const offer = await Offer.findById(offerId);
+        const offers = await Offer.find({ publisher: user});
+        console.log({ offers });
+        const users = await User.find({ toAccept: offer});
+        console.log({ users });
+        // var result = [];
+        // for(var i =0; i < users.length; i++){
+        //     var listOfTrips = users[i].toAccept;
+        //     var listOfTrips = listOfTrips.filter(function (item) {
+        //         return item == offer.id;
+        //     });
+        //     if(listOfTrips !=0 ){
+        //     result.push(listOfTrips);
+        //     }
+        // }
+        res.status(200).json(users);
+    },
+
+    acceptUser: async (req, res, next) => {
+        const id = req.header('auth-token');
+        const publisher = await User.findById(id);
+        const { offerId } = req.value.params;
+        const offer = await Offer.findById(offerId);
+        const userId = req.params.userId;
+        const user = await User.findById(userId);
+        console.log({user});
+        if (offer.seatsLeft < 1) {
+            return res.status(403).json({ error: 'You dont have any seats left in this offer now'});
         }
         console.log({offer});
+        console.log(user.toAccept);
+        // if (!user.find({toAccept: offer})){
+        //     return res.status(403).json({ error: 'This user did not book any seats here :o' });
+        // }
+        var toAcceptList = user.toAccept;
+        var toAcceptList = toAcceptList.filter(function (item) {
+            return item != offer.id;
+        });
+        user.toAccept = toAcceptList;
+        await user.save();
         user.trips.push(offer);
         await user.save();
         offer.seatsLeft = offer.seatsLeft - 1;
         await offer.save();
-        const offers = await Offer.find({});
-        console.log({ offers });
-        res.status(200).json(offers);
+        const users = await User.find({ toAccept: offer });
+        console.log({ users });
+        res.status(200).json(users);
+    },
+
+    rejectUser: async (req, res, next) => {
+        const id = req.header('auth-token');
+        const publisher = await User.findById(id);
+        const { offerId } = req.value.params;
+        const offer = await Offer.findById(offerId);
+        const userId = req.params.userId;
+        const user = await User.findById(userId);
+        var toAcceptList = user.toAccept;
+        var toAcceptList = toAcceptList.filter(function (item) {
+            return item != offer.id;
+        });
+        user.toAccept = toAcceptList;
+        await user.save();
+        const users = await User.find({ toAccept: offer });
+        res.status(200).json(users);
+
     },
 
     resignFromTrip: async (req, res, next) => {
