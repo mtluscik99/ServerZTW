@@ -1,8 +1,12 @@
-Commends:
-#npm install
-#npm start 
+##### TripMate Server
 
-Technologies:
+#Commends to start:
+```
+npm install
+npm start
+```
+
+#Technologies:
 -Node.js
 -ExpressJS
 -MongoDB
