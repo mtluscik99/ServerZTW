@@ -1,4 +1,4 @@
-##### TripMate Server
+# TripMate Server
 
 ## Commends to start:
 ```
@@ -14,8 +14,8 @@ npm start
 
 URL: [address](http://localhost:5000/)
 
-### API Endpoints:
-#    USER:
+## API Endpoints:
+###    USER:
 1. POST  /users/signup     
    - register a user
 2. POST  /users/signin      
@@ -40,7 +40,7 @@ URL: [address](http://localhost:5000/)
     - resign an offer and remove it from trips array in user(user id (auth-token) needed in header request as user, and offer id needed in path as an offer to book)
 
     
-#    OFFER:
+###    OFFER:
 1. GET   /offers           
    - list of all offers
 2. POST  /offers/add                
@@ -64,27 +64,27 @@ URL: [address](http://localhost:5000/)
 11. DELETE/offers/:offerId                           
     - deletes particular users offer (publisher id (auth-token) needed in header request and offer id in path)
 
-## Current structure of project:
+### Current structure of project:
 
--config
-    -index.js
--controllers
-    -offers.js
-    -users.js
--helpers
-    -routeHelpers.js
--models
-    -offer.js
-    -user.js
--node_modules..
--routes
-    -offers.js
-    -users.js
--test
-    -api
-        -offers
-            -get.js
-            -post.js
+- config
+    - index.js
+- controllers
+    - offers.js
+    - users.js
+- helpers
+    - routeHelpers.js
+- models
+    - offer.js
+    - user.js
+- node_modules..
+- routes
+    - offers.js
+    - users.js
+- test
+    - api
+        - offers
+            - get.js
+            - post.js
 
 
 
