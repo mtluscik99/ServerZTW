@@ -23,6 +23,9 @@ router.route('/book-trip/:offerId')
 router.route('/users-to-accept/:offerId')
     .get(validateParam(schemas.idSchema, 'offerId'), UsersController.getUsersToAcceptTrip);
 
+router.route('/all-users-to-accept')
+    .get(UsersController.getAllUsersToAccept);
+
 router.route('/accept-user/:offerId/:userId')
     .get([validateParam(schemas.idSchema, 'offerId'), validateParam(schemas.idSchema, 'offerId')],UsersController.acceptUser);
 

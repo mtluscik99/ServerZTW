@@ -32,11 +32,13 @@ URL: [address](http://localhost:5000/)
    - ask publisher to book an offer and save it in a toAccept array in user(user id (auth-token) needed in header request as user, and offer id needed in path as an offer to book) returns offer
 8. GET   /users/users-to-accept/:offerId 
    - shows a list of unaccepted users wanted to book a trip to partiicular offer (publisher id (auth-token) needed in header request and offer id needed in path)
-9. GET   /users/accept-user/:offerId/:userId 
+9. GET   /users/all-users-to-accept
+   - shows a list of users wanted to book trips published by publisher (publisher id (auth-token) needed in header request)
+10. GET   /users/accept-user/:offerId/:userId 
    - add asking user for a trip (publisher id (auth-token) needed in header request and offer id needed in path and user id needed in a path)
-10. GET   /users/reject-user/:offerId/:userId 
+11. GET   /users/reject-user/:offerId/:userId 
     - disagree for booking a trip by an user(publisher id (auth-token) needed in header request and offer id needed in path and user id needed in a path)
-11. GET   /users/resign-trip/:offerId   
+12. GET   /users/resign-trip/:offerId   
     - resign an offer and remove it from trips array in user(user id (auth-token) needed in header request as user, and offer id needed in path as an offer to book)
 
     

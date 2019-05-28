@@ -13,6 +13,7 @@ signToken = user => {
     }, JWT_SECRET);
 }
 
+
 module.exports = {
     index: async (req, res, next) => {
        const users = await User.find({});
@@ -68,6 +69,7 @@ module.exports = {
         console.log({ offers });
         const users = await User.find({ toAccept: offer});
         console.log({ users });
+   
         // var result = [];
         // for(var i =0; i < users.length; i++){
         //     var listOfTrips = users[i].toAccept;
@@ -79,6 +81,36 @@ module.exports = {
         //     }
         // }
         res.status(200).json(users);
+    },
+
+    getAllUsersToAccept: async (req, res, next) => {
+        const id = req.header('auth-token');
+        const user = await User.findById(id);
+        const offers = await Offer.find({ publisher: user });
+        const users = await User.find({}).populate('toAccept');
+        
+        var resultOffers =[];
+        var resultUsers = [];
+        var offersIds =[];
+        for (var i = 0; i < users.length; i++) {
+            var usertoPrint;
+            var output = users[i].toAccept;
+            var output= output.filter(function (value) { 
+                if (value.publisher == id){
+                    offersIds = offersIds.concat(value.id);
+                }
+                return value.publisher == id; })
+            if(output.length > 0 ){
+            usertoPrint = users[i];
+            resultUsers = resultUsers.concat(usertoPrint);
+            resultOffers = resultOffers.concat(output);
+            }
+        }
+        //console.log({ offersIds });
+        console.log({ resultUsers });
+        //console.log({ resultOffers });
+    
+        res.status(200).json(resultUsers);
     },
 
     acceptUser: async (req, res, next) => {
