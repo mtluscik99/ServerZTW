@@ -66,8 +66,8 @@ module.exports = {
             cityFrom: Joi.string().required(),
             cityTo: Joi.string().required(),
             seatsLeft: Joi.number().min(1).max(6).required(),
-            departureDate: Joi.date(),
-            arrivalDate: Joi.date(),
+            departureDate: Joi.string(),
+            arrivalDate: Joi.string(),
             description: Joi.string().max(500).optional()
         }),
 
@@ -76,24 +76,24 @@ module.exports = {
             cityFrom: Joi.string().required(),
             cityTo: Joi.string().required(),
             seatsLeft: Joi.number().min(1).max(6).required(),
-            departureDate: Joi.date(),
-            arrivalDate: Joi.date(),
+            departureDate: Joi.string(),
+            arrivalDate: Joi.string(),
             description: Joi.string().max(500).optional()
         }),
         putOfferSchema: Joi.object().keys({
             cityFrom: Joi.string().required(),
             cityTo: Joi.string().required(),
             seatsLeft: Joi.number().min(1).max(6).required(),
-            departureDate: Joi.date(),
-            arrivalDate: Joi.date(),
+            departureDate: Joi.string(),
+            arrivalDate: Joi.string(),
             description: Joi.string().max(500).optional()
         }),
         patchOfferSchema: Joi.object().keys({
             cityFrom: Joi.string().optional(),
             cityTo: Joi.string().optional(),
             seatsLeft: Joi.number().min(1).max(6).optional(),
-            departureDate: Joi.date(),
-            arrivalDate: Joi.date(),
+            departureDate: Joi.string(),
+            arrivalDate: Joi.string(),
             description: Joi.string().max(500).optional()
         }),
         authSchema: Joi.object().keys({

@@ -29,14 +29,14 @@ const offerSchema = new Schema({
         ref: 'user'
     },
     departureDate: {
-        type: Date,
-        required: true,
-        default: Date.now()
+        type: String,
+        required: true
+        //default: Date.now()
     },
     arrivalDate: {
-        type: Date,
-        required: true,
-        default: Date.now()
+        type: String,
+        required: true
+        //default: Date.now()
     },
     description: {
         type: String,

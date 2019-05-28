@@ -27,9 +27,13 @@ module.exports = {
         console.log(req.value);
         const id = req.header('auth-token');
         const user = await User.findById(id);
+        console.log(req.body.arrivalDate);
         const newOffer = req.body;
         const offer = new Offer(newOffer);
         offer.publisher = user;
+        offer.departureDate = "2020-01-01";
+        console.log(offer.departureDate);
+        console.log(offer.arrivalDate);
         await offer.save();
         res.status(201).json(offer);
     },
